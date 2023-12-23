@@ -7,6 +7,7 @@ const initForm = {
 };
 
 function AuthPage() {
+  const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState(initForm);
 
@@ -20,18 +21,31 @@ function AuthPage() {
       [event.target.name]: event.target.value,
     }));
 
+  const handleAuth = async () => {
+    try {
+      setLoading(true);
+      if (isLogin) {
+        console.log(isLogin);
+      } else {
+        console.log(isLogin);
+      }
+    } catch (err) {
+      setLoading(false);
+    }
+  };
+
   return (
     <Container
       maxWidth="xs"
       sx={{
-        mt: 10,
+        mt: 25,
       }}
     >
       <Stack mb={5} spacing={6} alignItems="center" textAlign="center">
-        <p>Title</p>
+        <h3>Project Management software </h3>
         <Typography color="rgb(255, 255, 255, .6)">
-          Project Management software <br /> (proxy, chain of responsibility,
-          abstract factory, bridge, flyweight, client-server)
+          proxy, chain of responsibility, abstract factory, bridge, flyweight,
+          client-server
         </Typography>
       </Stack>
       <Stack spacing={2}>
@@ -49,7 +63,9 @@ function AuthPage() {
           label="Password"
         />
         <Button
-          disabled={!form.email.trim() || !form.password.trim()}
+          disabled={loading || !form.email.trim() || !form.password.trim()}
+          onClick={handleAuth}
+          size="large"
           variant="contained"
         >
           {isLogin ? "Login" : "Register"}
