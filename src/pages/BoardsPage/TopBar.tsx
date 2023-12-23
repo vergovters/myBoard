@@ -1,7 +1,11 @@
 import { AppBar, Toolbar, Button, Stack } from "@mui/material";
 import Logout from "@mui/icons-material/ExitToApp";
 
-export default function TopBar() {
+interface TopBarProps {
+  openModal: () => void;
+}
+
+export default function TopBar({ openModal }: TopBarProps) {
   return (
     <AppBar position="static">
       <Toolbar
@@ -11,7 +15,9 @@ export default function TopBar() {
       >
         <h2>Projects</h2>
         <Stack direction="row" spacing={2}>
-          <Button variant="contained">Create Board</Button>
+          <Button variant="contained" onClick={openModal}>
+            Create Board
+          </Button>
           <Button startIcon={<Logout />}>LogOut</Button>
         </Stack>
       </Toolbar>
