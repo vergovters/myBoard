@@ -1,3 +1,12 @@
+import Modal from "./Modal";
+import TopBar from "./TopBar";
+
 export default function BoardsPage() {
-  return <div>index</div>;
+  return (
+    <>
+      <TopBar />
+      <h3>boards</h3>
+      <Modal />
+    </>
+  );
 }
