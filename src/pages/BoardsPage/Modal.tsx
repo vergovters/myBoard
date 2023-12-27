@@ -10,7 +10,11 @@ import {
 import ModalHeader from "../../components/ui/ModalHeader";
 import { colors } from "../../theme";
 
-export default function Modal({closeModal}) {
+interface ModalProps {
+  closeModal: () => void;
+}
+
+export default function Modal({ closeModal }: ModalProps) {
   const [name, setName] = useState("");
   const [color, setColor] = useState(0);
   return (

@@ -9,7 +9,7 @@ interface MyStore {
 
 const store = (set: SetState<MyStore>) => ({
   loader: true,
-  isLoggedIn: true,
+  isLoggedIn: false,
   setLoginStatus: (status: boolean) =>
     set(
       (state) => ({
