@@ -33,7 +33,9 @@ module.exports = {
     "react/react-in-jsx-scope": 0,
     "react/jsx-no-useless-fragment": 0,
     "react/no-array-index-key": 0,
-    "typescript-eslint.io/rules/no-explicit-any": 0,
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     "react/jsx-props-no-spreading": 0,
     "import/prefer-default-export": 0,
     "prettier/prettier": [

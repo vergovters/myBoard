@@ -7,13 +7,10 @@ import useStore from "./store";
 import Loader from "./components/layout/Loader";
 import PublicRoute from "./utils/PublicRoute";
 import BoardsPage from "./pages/BoardsPage";
+import BoardPage from "./pages/BoardPage";
 import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
-  const { loader, setLoginStatus } = useStore();
-
-  // if (loader) return <Loader />;
-
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -28,6 +25,11 @@ function App() {
               path={BOARDS_ROUTE}
               element={<PrivateRoute Component={BoardsPage} />}
             />
+            <Route
+              path="/boards/:boardId"
+              element={<PrivateRoute Component={BoardPage} />}
+            />
+            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

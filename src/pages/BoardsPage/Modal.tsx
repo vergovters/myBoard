@@ -1,14 +1,13 @@
-import { useState } from "react";
 import {
-  Dialog,
-  Stack,
+  Select,
+  MenuItem,
   TextField,
   Button,
-  Box,
-  Typography,
+  Stack,
+  Dialog,
 } from "@mui/material";
+import { useState } from "react";
 import ModalHeader from "../../components/ui/ModalHeader";
-import { colors } from "../../theme";
 
 interface ModalProps {
   closeModal: () => void;
@@ -16,7 +15,7 @@ interface ModalProps {
 
 export default function Modal({ closeModal }: ModalProps) {
   const [name, setName] = useState("");
-  const [color, setColor] = useState(0);
+  const [description, setDescription] = useState("");
   return (
     <Dialog open fullWidth maxWidth="xs">
       <Stack p={2}>
@@ -27,23 +26,24 @@ export default function Modal({ closeModal }: ModalProps) {
             onChange={(e) => setName(e.target.value)}
             label="Board name"
           />
-          <Stack spacing={1.5} direction="row">
-            <Typography>Color: </Typography>
-            {colors.map((clr, idx) => (
-              <Box
-                key={clr}
-                onClick={() => setColor(idx)}
-                style={{
-                  cursor: "pointer",
-                  border: color === idx ? "3px solid #383838" : "none",
-                  outline: `2px solid ${clr}`,
-                  height: 25,
-                  width: 25,
-                  backgroundColor: clr,
-                  borderRadius: "50%",
-                }}
-              />
-            ))}
+          <TextField
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            label="Board description"
+          />
+          <Stack direction="row" gap={2}>
+            <Select sx={{ width: "100%" }}>
+              <MenuItem value="Agile" selected>
+                Agile
+              </MenuItem>
+              <MenuItem value="KANBAN">Kanban</MenuItem>
+              <MenuItem value="RUP">Rup</MenuItem>
+            </Select>
+            <Select sx={{ width: "100%" }}>
+              <MenuItem value="TODO">TODO</MenuItem>
+              <MenuItem value="INPROGRESS">INPROGRESS</MenuItem>
+              <MenuItem value="DONE">DONE</MenuItem>
+            </Select>
           </Stack>
         </Stack>
         <Button variant="contained" size="large">

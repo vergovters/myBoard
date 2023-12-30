@@ -4,7 +4,7 @@ import { devtools } from "zustand/middleware";
 interface MyStore {
   loader: boolean;
   isLoggedIn: boolean;
-  setLoginStatus: (status: boolean) => void;
+  setLoginStatus: (status: boolean) => any;
 }
 
 const store = (set: SetState<MyStore>) => ({

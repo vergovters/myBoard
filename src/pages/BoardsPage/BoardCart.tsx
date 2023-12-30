@@ -3,15 +3,24 @@ import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../theme";
 
-function BoardCard({ name, color, createdAt, id }) {
+interface IBoardProp {
+  name: string;
+  description: string;
+  status: string;
+  meto: string;
+  id: number;
+}
+
+function BoardCard({ name, description, status, meto, id }: IBoardProp) {
   const navigate = useNavigate();
+  const randColor = Math.floor(Math.random() * (6 - 0 + 1) + 0);
   return (
     <Grid item xs={12} sm={3}>
       <Stack
         p={2}
         bgcolor="background.paper"
         borderLeft="5px solid"
-        borderColor={colors[color]}
+        borderColor={colors[randColor]}
       >
         <Stack
           direction="row"
@@ -26,7 +35,7 @@ function BoardCard({ name, color, createdAt, id }) {
               fontWeight={400}
               variant="h6"
             >
-              {name}
+              {name} ({status})
             </Typography>
           </Box>
 
@@ -34,7 +43,12 @@ function BoardCard({ name, color, createdAt, id }) {
             <OpenIcon />
           </IconButton>
         </Stack>
-        <Typography variant="caption">Created at: {createdAt}</Typography>
+        <Typography textOverflow="ellipsis" overflow="hidden">
+          {description}
+        </Typography>
+        <Typography variant="caption" pt={2}>
+          {meto}
+        </Typography>
       </Stack>
     </Grid>
   );

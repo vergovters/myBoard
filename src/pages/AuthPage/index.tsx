@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Container, Stack, TextField, Button, Typography } from "@mui/material";
+import axios from "axios";
+import { userApi } from "../../services/Auth.service";
+import useStore from "../../store";
 
 const initForm = {
-  email: "",
+  username: "",
   password: "",
 };
 
@@ -10,6 +13,10 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState(initForm);
+  const [createUser] = userApi.useCreateUserMutation();
+  const [loginUser] = userApi.useLoginUserMutation();
+  const [error, isError] = useState(false);
+  const { setLoginStatus } = useStore();
 
   const authText = isLogin
     ? "Do not have an account?"
@@ -25,15 +32,27 @@ function AuthPage() {
     try {
       setLoading(true);
       if (isLogin) {
-        console.log(isLogin);
+        const info = {
+          username: form.username,
+          password: form.password,
+        };
+        await loginUser(info);
+        setLoginStatus(true);
       } else {
-        console.log(isLogin);
+        const info = {
+          username: form.username,
+          password: form.password,
+        };
+        await createUser(info);
+        setIsLogin(true);
+        setLoading(false);
+        setForm(initForm);
       }
     } catch (err) {
       setLoading(false);
+      setForm(initForm);
     }
   };
-
   return (
     <Container
       maxWidth="xs"
@@ -50,10 +69,10 @@ function AuthPage() {
       </Stack>
       <Stack spacing={2}>
         <TextField
-          value={form.email}
-          name="email"
+          value={form.username}
+          name="username"
           onChange={handleChange}
-          label="Email"
+          label="Username"
         />
         <TextField
           value={form.password}
@@ -62,8 +81,11 @@ function AuthPage() {
           onChange={handleChange}
           label="Password"
         />
+        {form.password.length < 8 && (
+          <p style={{ color: "red" }}>Password should be at least 8 symbols</p>
+        )}
         <Button
-          disabled={loading || !form.email.trim() || !form.password.trim()}
+          disabled={loading || !form.username.trim() || !form.password.trim()}
           onClick={handleAuth}
           size="large"
           variant="contained"
